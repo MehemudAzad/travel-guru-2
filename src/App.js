@@ -6,6 +6,9 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import News from './pages/News';
 import HotelDetail from './pages/HotelDetail/HotelDetail';
+import Bookings from './pages/Bookings/Bookings';
+import PrivateRoute from './PrivateRoutes/PrivateRoute';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const router = createBrowserRouter([
@@ -19,7 +22,7 @@ function App() {
           loader:()=>fetch("http://localhost:5000/hotels")
         },
         {
-          path:'/home/:id',
+          path:'/hotels/:id',
           element:<HotelDetail></HotelDetail>,
           loader:({params})=>fetch(`http://localhost:5000/hotels/${params.id}`)
         },
@@ -34,13 +37,18 @@ function App() {
         {
           path:'/news',
           element:<News></News>
+        },
+        {
+          path:'/bookings',
+          element:<PrivateRoute><Bookings></Bookings></PrivateRoute>
         }
       ]
     }
   ])
   return (
-    <div className="App">
+    <div className="">
      <RouterProvider router={router}></RouterProvider>
+     <Toaster/>
     </div>
   );
 }
